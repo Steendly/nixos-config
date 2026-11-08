@@ -8,12 +8,21 @@
   programs.dank-material-shell = {
     enable = true;
 
-    systemd.enable = true;
+    systemd = {
+      enable = true;             # Systemd service for auto-start
+      restartIfChanged = true;   # Auto-restart dms.service when dank-material-shell changes
+    };
 
-    enableSystemMonitoring = true;
-    enableDynamicTheming = true;
+    # Core features
+    enableSystemMonitoring = true;     # System monitoring widgets
+    enableVPN = true;                  # VPN management widget
+    enableDynamicTheming = true;       # Wallpaper-based theming (matugen)
+    enableAudioWavelength = true;      # Audio visualizer (cava)
+    enableCalendarEvents = true;       # Calendar integration (khal)
 
+    # Personal settings
     settings = {
+      theme = "dark";
       dynamicTheming = true;
     };
   };
