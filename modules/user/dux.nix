@@ -24,6 +24,8 @@
     settings = {
       theme = "dark";
       dynamicTheming = true;
+
+      greeterRememberLastSession = true;
     };
   };
 }

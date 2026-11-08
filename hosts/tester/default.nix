@@ -9,6 +9,7 @@
     ./configuration.nix
     
     ../../modules/system/hyprland.nix
+    ../../modules/system/dux-greeter.nix
   ];
 
   hostSpec = {
