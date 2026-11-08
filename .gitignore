@@ -41,3 +41,6 @@ flake-regressions
 
 # direnv
 .direnv/
+
+# some personal file temporary
+deploy.sh
