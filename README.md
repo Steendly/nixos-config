@@ -2,7 +2,7 @@
 
 My personal NixOS configuration, first time doing that!
 
-I plan to use [Duk](https://duxlabs.dev/docs/dms/nixos-flake).
+I plan to use [Dux](https://duxlabs.dev/docs/dms/nixos-flake).
 
 This README will be updated maybe one day...
 
