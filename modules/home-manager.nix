@@ -9,6 +9,10 @@
     useGlobalPkgs = true;
     useUserPackages = true;
 
+    extraSpecialArgs = {
+      inherit inputs;
+    };
+
     users.${config.hostSpec.username} = {
       imports = [
         ../hosts/${config.hostSpec.hostname}/home.nix

@@ -5,7 +5,10 @@
     # ./hardware-configuration.nix
     ../../modules/host-spec.nix
     ../../modules/home-manager.nix
+
     ./configuration.nix
+    
+    ../../modules/system/hyprland.nix
   ];
 
   hostSpec = {
