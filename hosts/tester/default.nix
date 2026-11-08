@@ -8,7 +8,6 @@
   ];
 
   hostSpec = {
-    hostname = "ZXY";
     username = "azcos";
     stateVersion = "26.05";
   };

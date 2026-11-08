@@ -12,24 +12,20 @@
 
   outputs = {nixpkgs, home-manager, ... }@inputs:
     let
-      mkHost = {
-        hostname,
-      }:
-      nixpkgs.lib.nixosSystem {
-        specialArgs = {
-          inherit hostname;
-        };
+      mkHost = hostname:
+        nixpkgs.lib.nixosSystem {
+          specialArgs = {
+            inherit hostname;
+          };
 
-        modules = [
-          home-manager.nixosModules.home-manager
-          ./hosts/${hostname}
-        ];
-      };
+          modules = [
+            home-manager.nixosModules.home-manager
+            ./hosts/${hostname}
+          ];
+        };
     in {
       nixosConfigurations = {
-        tester = mkHost {
-          hostname = "tester";
-        };
+        tester = mkHost "tester";
       };
     };
 }

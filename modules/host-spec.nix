@@ -1,9 +1,10 @@
-{ config, lib, ... }:
+{ config, lib, hostname, ... }:
 
 {
   options.hostSpec = {
     hostname = lib.mkOption {
       type = lib.types.str;
+      default = hostname;
       description = "Name of the machine";
     };
 
