@@ -4,7 +4,7 @@
   options.hostSpec = {
     hostname = lib.mkOption {
       type = lib.types.str;
-      default = hostname;
+      readOnly = true;
       description = "Name of the machine";
     };
 
@@ -25,4 +25,6 @@
       description = "State version of the system";
     };
   };
+
+  config.hostSpec.hostname = hostname;
 }
