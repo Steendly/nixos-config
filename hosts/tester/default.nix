@@ -10,6 +10,7 @@
     
     ../../modules/system/hyprland.nix
     ../../modules/system/dux-greeter.nix
+    ../../modules/system/boot-screen.nix
   ];
 
   hostSpec = {
