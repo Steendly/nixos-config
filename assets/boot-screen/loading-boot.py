@@ -7,7 +7,8 @@ from PIL import Image, ImageDraw
 
 SIZE = 56
 SCALE = 4
-COLOR = "#D0BCFF"
+DEFAULT_COLOR = "#a5a5a5"
+CIRCLE_COLOR = "#848484"
 INDICATOR_SIZE = 44
 FRAMES_PER_CYCLE = 60
 DATA_FILE = Path(__file__).with_name("material-shapes.json")
@@ -56,7 +57,7 @@ def flatten(cubic, points):
     append_curve(a, b, c, d)
 
 
-def render_morph(morph, progress, rotation=0):
+def render_morph(morph, progress, rotation=0, primary_color=DEFAULT_COLOR):
     points = []
     # Morph.asCubics uses this same linear interpolation of matched controls.
     for start, end in zip(morph["start"], morph["end"]):
@@ -69,14 +70,17 @@ def render_morph(morph, progress, rotation=0):
     )
     transform = INDICATOR_SIZE * complex(math.cos(rotation), math.sin(rotation))
     pixels = [(p-center)*transform + complex(SIZE/2, SIZE/2) for p in points]
-    image = Image.new("RGBA", (SIZE*SCALE, SIZE*SCALE))
-    ImageDraw.Draw(image).polygon(
-        [(p.real*SCALE, p.imag*SCALE) for p in pixels], fill=COLOR
+    canvas_size = SIZE * SCALE
+    image = Image.new("RGBA", (canvas_size, canvas_size))
+    draw = ImageDraw.Draw(image)
+    draw.ellipse((0, 0, canvas_size - 1, canvas_size - 1), fill=CIRCLE_COLOR)
+    draw.polygon(
+        [(p.real*SCALE, p.imag*SCALE) for p in pixels], fill=primary_color
     )
     return image.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
-def render_frame(index, morphs):
+def render_frame(index, morphs, primary_color=DEFAULT_COLOR):
     phase = len(morphs) * index / FRAMES_PER_CYCLE
     shape = math.floor(phase) % len(morphs)
     fraction = phase - math.floor(phase)
@@ -84,18 +88,20 @@ def render_frame(index, morphs):
     # quarter-turns are intentionally not claimed to be reproduced here.
     progress = fraction*fraction*(3-2*fraction)
     rotation = index / FRAMES_PER_CYCLE * math.tau
-    return render_morph(morphs[shape], progress, rotation)
+    return render_morph(morphs[shape], progress, rotation, primary_color)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("output", type=Path)
     parser.add_argument("--geometry", type=Path, default=DATA_FILE)
+    parser.add_argument("--primary-color", default=DEFAULT_COLOR)
     args = parser.parse_args()
     morphs = load_morphs(args.geometry)
     args.output.mkdir(parents=True, exist_ok=True)
     for index in range(FRAMES_PER_CYCLE):
-        render_frame(index, morphs).save(args.output / f"throbber-{index+1:04d}.png")
+        frame = render_frame(index, morphs, args.primary_color)
+        frame.save(args.output / f"throbber-{index+1:04d}.png")
 
 
 if __name__ == "__main__":
