@@ -7,8 +7,8 @@ from PIL import Image, ImageDraw
 
 SIZE = 56
 SCALE = 4
-DEFAULT_COLOR = "#a5a5a5"
-CIRCLE_COLOR = "#848484"
+DEFAULT_COLOR = "#f3edf7"
+CIRCLE_COLOR = "#cac4d0"
 INDICATOR_SIZE = 44
 FRAMES_PER_CYCLE = 60
 DATA_FILE = Path(__file__).with_name("material-shapes.json")
