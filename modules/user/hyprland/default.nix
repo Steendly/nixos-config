@@ -22,11 +22,4 @@
       };
     };
   };
-
-  home.packages = with pkgs; [
-    
-  ];
-
-  programs.bash.enable = true;
-  programs.kitty.enable = true;
 }
