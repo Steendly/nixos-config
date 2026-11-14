@@ -1,6 +1,10 @@
-{ lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
+  imports = [
+    ./theme.nix
+  ];
+
   programs.bash.enable = true;
 
   programs.eza = {
@@ -15,16 +19,11 @@
 
     settings =
       let
-        colors = {
-          dark = "#474747";
-          muted = "#B9B9B9";
-          bright = "#F1F1F1";
-          error = "#FFB4AB";
-        };
+        inherit (config.theme.colors) surface onSurface error;
       in
       {
         add_newline = false;
-        
+
         format = lib.concatStrings [
           "$line_break"
           "\${custom.ssh_user}"
@@ -39,27 +38,27 @@
           command = "${pkgs.coreutils}/bin/id -un";
 
           format = lib.concatStrings [
-            "[](fg:${colors.dark})"
-            "[$output on 🌐 ](bold fg:${colors.bright} bg:${colors.dark})"
-            "[](fg:${colors.muted} bg:${colors.dark})"
+            "[](fg:${surface})"
+            "[$output on 🌐 ](bold fg:${onSurface} bg:${surface})"
+            "[](fg:${onSurface} bg:${surface})"
           ];
         };
 
         custom.local_directory_edge = {
           when = ''test -z "$SSH_CONNECTION$SSH_CLIENT$SSH_TTY"'';
-          format = "[](fg:${colors.muted})";
+          format = "[](fg:${onSurface})";
         };
 
         character = {
-          success_symbol = "[ ](bold fg:${colors.muted})";
-          error_symbol = "[ ](bold fg:${colors.error})";
+          success_symbol = "[ ](bold fg:${onSurface})";
+          error_symbol = "[ ](bold fg:${error})";
         };
 
         directory = {
-          style = "bg:${colors.muted} fg:${colors.dark}";
+          style = "bg:${onSurface} fg:${surface}";
           truncation_length = 2;
           truncation_symbol = ".../";
-          format = "[󰉋 → $path]($style)[](bold fg:${colors.muted})";
+          format = "[󰉋 → $path]($style)[](bold fg:${onSurface})";
         };
       };
   };

@@ -1,0 +1,5 @@
+[config]
+
+[templates.palette]
+input_path = "./template.json"
+output_path = "./colors.json"

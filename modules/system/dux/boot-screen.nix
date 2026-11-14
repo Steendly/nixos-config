@@ -3,7 +3,9 @@
 let
   themeName = "material-loading";
   python = pkgs.python3.withPackages (ps: [ ps.pillow ]);
-  theme = pkgs.runCommand "plymouth-${themeName}" { nativeBuildInputs = [ python ]; } ''
+  theme = pkgs.runCommand "plymouth-${themeName}" {
+    nativeBuildInputs = [ python ]; 
+  } ''
     spinnerDir=${config.boot.plymouth.package}/share/plymouth/themes/spinner
     themeDir="$out/share/plymouth/themes/${themeName}"
     mkdir -p "$themeDir"
