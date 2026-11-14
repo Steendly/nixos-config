@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../modules/user/hyprland.nix
-    ../../modules/user/dux.nix
+    ../../modules/user/hyprland
+    ../../modules/user/dux
   ];
 }

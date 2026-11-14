@@ -24,6 +24,9 @@
   };
 
   home.packages = with pkgs; [
-    kitty
+    
   ];
+
+  programs.bash.enable = true;
+  programs.kitty.enable = true;
 }

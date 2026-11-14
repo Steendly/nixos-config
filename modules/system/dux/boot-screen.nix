@@ -10,8 +10,8 @@ let
 
     cp "$spinnerDir"/*.png "$themeDir/"
     rm -f "$themeDir"/throbber-*.png
-    python3 ${../../assets/boot-screen/loading-boot.py} \
-      --geometry ${../../assets/boot-screen/material-shapes.json} "$themeDir"
+    python3 ${../../../assets/boot-screen/loading-boot.py} \
+      --geometry ${../../../assets/boot-screen/material-shapes.json} "$themeDir"
 
     sed -e 's/^Name=.*/Name=Material Loading/' \
         -e "s|^ImageDir=.*|ImageDir=$themeDir|" \

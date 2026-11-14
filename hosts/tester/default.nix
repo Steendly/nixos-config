@@ -8,9 +8,8 @@
 
     ./configuration.nix
     
-    ../../modules/system/hyprland.nix
-    ../../modules/system/dux-greeter.nix
-    ../../modules/system/boot-screen.nix
+    ../../modules/system/hyprland
+    ../../modules/system/dux
   ];
 
   hostSpec = {
