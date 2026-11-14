@@ -3,6 +3,9 @@
 {
   imports = [
     inputs.dms.homeModules.dank-material-shell
+    ../hyprland
+    ../kitty.nix
+    ./binds.nix
   ];
 
   programs.dank-material-shell = {

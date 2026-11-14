@@ -8,7 +8,6 @@
 
     ./configuration.nix
     
-    ../../modules/system/hyprland
     ../../modules/system/dux
   ];
 
