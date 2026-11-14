@@ -57,7 +57,7 @@ def flatten(cubic, points):
     append_curve(a, b, c, d)
 
 
-def render_morph(morph, progress, rotation=0, primary_color=DEFAULT_COLOR):
+def render_morph(morph, progress, rotation=0, primary_color=DEFAULT_COLOR, circle_color=CIRCLE_COLOR):
     points = []
     # Morph.asCubics uses this same linear interpolation of matched controls.
     for start, end in zip(morph["start"], morph["end"]):
@@ -73,14 +73,14 @@ def render_morph(morph, progress, rotation=0, primary_color=DEFAULT_COLOR):
     canvas_size = SIZE * SCALE
     image = Image.new("RGBA", (canvas_size, canvas_size))
     draw = ImageDraw.Draw(image)
-    draw.ellipse((0, 0, canvas_size - 1, canvas_size - 1), fill=CIRCLE_COLOR)
+    draw.ellipse((0, 0, canvas_size - 1, canvas_size - 1), fill=circle_color)
     draw.polygon(
         [(p.real*SCALE, p.imag*SCALE) for p in pixels], fill=primary_color
     )
     return image.resize((SIZE, SIZE), Image.Resampling.LANCZOS)
 
 
-def render_frame(index, morphs, primary_color=DEFAULT_COLOR):
+def render_frame(index, morphs, primary_color=DEFAULT_COLOR, circle_color=CIRCLE_COLOR):
     phase = len(morphs) * index / FRAMES_PER_CYCLE
     shape = math.floor(phase) % len(morphs)
     fraction = phase - math.floor(phase)
@@ -88,7 +88,7 @@ def render_frame(index, morphs, primary_color=DEFAULT_COLOR):
     # quarter-turns are intentionally not claimed to be reproduced here.
     progress = fraction*fraction*(3-2*fraction)
     rotation = index / FRAMES_PER_CYCLE * math.tau
-    return render_morph(morphs[shape], progress, rotation, primary_color)
+    return render_morph(morphs[shape], progress, rotation, primary_color, circle_color)
 
 
 def main():
@@ -96,11 +96,14 @@ def main():
     parser.add_argument("output", type=Path)
     parser.add_argument("--geometry", type=Path, default=DATA_FILE)
     parser.add_argument("--primary-color", default=DEFAULT_COLOR)
+    parser.add_argument("--circle-color", default=CIRCLE_COLOR)
     args = parser.parse_args()
-    morphs = load_morphs(args.geometry)
+
     args.output.mkdir(parents=True, exist_ok=True)
+    morphs = load_morphs(args.geometry)
+
     for index in range(FRAMES_PER_CYCLE):
-        frame = render_frame(index, morphs, args.primary_color)
+        frame = render_frame(index, morphs, args.primary_color, args.circle_color)
         frame.save(args.output / f"throbber-{index+1:04d}.png")
 
 

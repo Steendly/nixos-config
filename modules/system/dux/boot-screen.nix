@@ -13,7 +13,10 @@ let
     cp "$spinnerDir"/*.png "$themeDir/"
     rm -f "$themeDir"/throbber-*.png
     python3 ${../../../assets/boot-screen/loading-boot.py} \
-      --geometry ${../../../assets/boot-screen/material-shapes.json} "$themeDir"
+      --geometry ${../../../assets/boot-screen/material-shapes.json} \
+      --primary-color "${config.theme.colors.onPrimaryContainer}" \
+      --circle-color "${config.theme.colors.primaryContainer}" \
+      "$themeDir"
 
     sed -e 's/^Name=.*/Name=Material Loading/' \
         -e "s|^ImageDir=.*|ImageDir=$themeDir|" \
@@ -22,6 +25,10 @@ let
   '';
 in
 {
+  imports = [
+    ../../user/theme.nix
+  ];
+
   boot.plymouth = {
     enable = true;
     theme = themeName;
