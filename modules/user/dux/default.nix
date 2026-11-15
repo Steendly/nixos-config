@@ -1,5 +1,8 @@
 { inputs, lib, pkgs, config, ... }:
 
+let
+  dms = lib.getExe config.programs.dank-material-shell.package;
+in
 {
   imports = [
     inputs.dms.homeModules.dank-material-shell
@@ -25,11 +28,18 @@
 
     # Personal settings
     settings = {
-      theme = "dark";
-      dynamicTheming = true;
+      currentThemeName = "dynamic";
+      currentThemeCategory = "dynamic";
       greeterRememberLastSession = true;
     };
   };
+
+  # Set wallpaper & dynamic theme
+  systemd.user.services.dms.Service.ExecStartPost = [
+    # "${dms} ipc call settings set currentThemeCategory dynamic"
+    # "${dms} ipc call settings set currentThemeName dynamic"
+    ''${dms} ipc call wallpaper set "${config.theme.wallpaper}"''
+  ];
 
   home.packages = with pkgs; [
 
