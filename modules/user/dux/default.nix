@@ -28,16 +28,63 @@ in
 
     # Personal settings
     settings = {
+      # Greeter
+      greeterRememberLastSession = true;
+
+      # Dynamic theme
       currentThemeName = "dynamic";
       currentThemeCategory = "dynamic";
-      greeterRememberLastSession = true;
+
+      # Lock Screen
+      lockScreenWidgetInstances = [
+        {
+          id = "lock_clock";
+          widgetType = "desktopClock";
+          enabled = true;
+          config = {
+            style = "expressive";
+            showDate = false;
+            autoPosition = false;
+          };
+        }
+        {
+          id = "lock_auth";
+          widgetType = "lockAuth";
+          enabled = true;
+          config = {
+            style = "expressive";
+            profileVisibility = "always";
+            passwordVisibility = "always";
+          };
+        }
+        {
+          id = "lock_notifications";
+          widgetType = "lockNotifications";
+          enabled = true;
+          config.mode = 2;
+        }
+        {
+          id = "lock_status";
+          widgetType = "lockStatus";
+          enabled = true;
+          config = {
+            showMediaPlayer = true;
+            showWeather = true;
+            background = false;
+          };
+        }
+        {
+          id = "lock_power";
+          widgetType = "lockPower";
+          enabled = true;
+          config.shape = "round";
+        }
+      ];
     };
   };
 
-  # Set wallpaper & dynamic theme
+  # Set wallpaper
   systemd.user.services.dms.Service.ExecStartPost = [
-    # "${dms} ipc call settings set currentThemeCategory dynamic"
-    # "${dms} ipc call settings set currentThemeName dynamic"
     ''${dms} ipc call wallpaper set "${config.theme.wallpaper}"''
   ];
 

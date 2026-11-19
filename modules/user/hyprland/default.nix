@@ -17,6 +17,7 @@
       input = {
         kb_layout = "fr";
         kb_variant = "";
+        numlock_by_default = true;
       };
 
       misc = {

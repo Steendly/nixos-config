@@ -2,9 +2,48 @@
 
 My personal NixOS configuration, first time doing that!
 
-I plan to use [Dux](https://duxlabs.dev/docs/dms/nixos-flake).
+I use [Dux](https://duxlabs.dev/docs/dms/nixos-flake) with Hyprland!
 
-This README will be updated maybe one day...
+
+## Dux Settings
+
+The `programs.dank-material-shell.settings` block accepts Dux settings as Nix attributes. To find the settings for a specific option:
+
+1. Save the current settings:
+    ```bash
+    dms ipc call settings dump > before-dms-settings.json
+    ```
+
+2. Change the option in the Dux settings interface, then save the updated settings:
+   ```bash
+   dms ipc call settings dump > after-dms-settings.json
+   ```
+
+3. Compare the two files:
+   ```bash
+   diff -u before-dms-settings.json after-dms-settings.json
+   ```
+
+Translate the changed JSON values into Nix syntax and add them to `programs.dank-material-shell.settings` in `modules/user/dux/default.nix`.
+
+For exemple,
+```json
+{
+  "exampleEnabled": true,
+  "exampleStyle": "round",
+  "exampleSize": 42,
+  "exampleItems": ["first", "second"]
+}
+```
+is equivalent to:
+```nix
+programs.dank-material-shell.settings = {
+  exampleEnabled = true;
+  exampleStyle = "round";
+  exampleSize = 42;
+  exampleItems = [ "first" "second" ];
+};
+```
 
 
 ## Deploy to a VM
