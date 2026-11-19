@@ -6,8 +6,12 @@ in
 {
   imports = [
     inputs.dms.homeModules.dank-material-shell
+    
     ../hyprland
     ../kitty.nix
+    ../bash.nix
+    
+    ./cursor.nix
     ./binds.nix
   ];
 
