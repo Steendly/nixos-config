@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   imports = [
@@ -18,7 +18,37 @@
         kb_layout = "fr";
         kb_variant = "";
         numlock_by_default = true;
+
+        touchpad = {
+          tap_to_click = true;
+          natural_scroll = false;
+        };
       };
+
+      general = {
+        gaps_in = 5;
+        gaps_out = 5;
+        border_size = 2;
+        col.active_border = config.theme.colors.primary;
+        layout = "dwindle";
+      };
+
+      decoration  = {
+        rounding = 12;
+        active_opacity = 1.0;
+        inactive_opacity = 1.0;
+        shadow = {
+          enabled = true;
+          range = 30;
+          render_power = 4;
+          offset = "0 5";
+          color = "rgba(00000070)";
+        };
+      };
+
+      dwindle = {
+		    preserve_split = true;
+	    };
 
       misc = {
         disable_hyprland_logo = true;
