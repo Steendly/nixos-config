@@ -13,6 +13,7 @@ in
     
     ./cursor.nix
     ./binds.nix
+    ./animations.nix
   ];
 
   programs.dank-material-shell = {
