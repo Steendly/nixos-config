@@ -85,6 +85,24 @@ in
           config.shape = "round";
         }
       ];
+
+      # Fonts
+      "fontFamily" = "Google Sans Flex Medium";
+      "monoFontFamily" = "Google Sans Flex";
+      "displayFontFamily"= "Google Sans Flex";
+
+      # Dock
+      "frameEnabled" = true;
+      "frameLauncherEmergeSide" = "top";
+      "connectedFrameBarStyleBackups" = {
+        "default" = {
+          "shadowIntensity" = 0;
+          "squareCorners" = false;
+          "attachToScreenEdge" = false;
+          "gothCornersEnabled" = true;
+          "borderEnabled" = true;
+        };
+      };
     };
   };
 
