@@ -5,7 +5,14 @@ let
 
   blesh = pkgs.blesh.overrideAttrs (old: {
     postInstall = (old.postInstall or "") + ''
+      # Supprimer message de fermeture
       sed -i '/\[ble: exit\]/s/.*/:/' "$out/share/blesh/ble.sh"
+
+      # Sauter une ligne après exécution d'une commande non vide
+      substituteInPlace "$out/share/blesh/ble.sh" --replace-fail \
+        'local command=$1 opts=$2 cols=$COLUMNS' \
+        'local command=$1 opts=$2 cols=$COLUMNS
+        [[ $command =~ [^[:space:]] ]] || return 0'
     '';
   });
 in
@@ -25,6 +32,7 @@ in
   xdg.configFile."blesh/init.sh".text = ''
     bleopt prompt_ps1_transient=always:trim
     bleopt prompt_ruler=empty-line
+    bleopt exec_errexit_mark=
     ble-face -s region_insert 'fg=${colors.surface},bg=${colors.onSurface}'
   '';
 
