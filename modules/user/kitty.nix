@@ -14,7 +14,7 @@
 
     settings = {
       # Window configuration
-      window_padding_width = "0 21.75 21.75";
+      window_padding_width = "21.75";
       hide_window_decorations = true;
       remember_window_size = false;
 
