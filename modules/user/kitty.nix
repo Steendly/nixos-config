@@ -33,6 +33,7 @@
       tab_bar_style = "powerline";
       tab_powerline_style = "round";
       tab_bar_align = "left";
+      tab_title_template = "{index}";
 
       # No close confirmation
       confirm_os_window_close = 0;
