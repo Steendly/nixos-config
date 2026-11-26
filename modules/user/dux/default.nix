@@ -14,6 +14,8 @@ in
     ./cursor.nix
     ./binds.nix
     ./animations.nix
+    ./bar-widgets.nix
+    ./dashboard.nix
   ];
 
   programs.dank-material-shell = {
@@ -103,6 +105,13 @@ in
           "borderEnabled" = true;
         };
       };
+
+      # Date Format
+      clockDateFormat = "d/M";
+
+      # Weather
+      weatherEnabled = false;
+      lockScreenShowWeather = false;
     };
   };
 
