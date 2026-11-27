@@ -16,6 +16,9 @@ in
     ./animations.nix
     ./bar-widgets.nix
     ./dashboard.nix
+
+    ./dsearch.nix
+    ./dcalendar.nix
   ];
 
   programs.dank-material-shell = {

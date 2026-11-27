@@ -9,6 +9,7 @@
     ./configuration.nix
     
     ../../modules/system/dux
+    ../../modules/system/nix.nix
   ];
 
   hostSpec = {
