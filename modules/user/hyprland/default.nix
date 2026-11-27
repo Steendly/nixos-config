@@ -18,4 +18,9 @@
 
     };
   };
+
+  xdg.desktopEntries.uuctl = {
+    name = "uuctl";
+    noDisplay = true;
+  };
 }
