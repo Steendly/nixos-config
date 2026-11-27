@@ -19,6 +19,7 @@ in
 
     ./dsearch.nix
     ./dcalendar.nix
+    ./dfiles.nix
   ];
 
   programs.dank-material-shell = {
